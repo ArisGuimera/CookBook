@@ -57,9 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
         initialData: Resource<AppInformationModel>.idle(),
         stream: bloc.appInformation,
         builder: (context, asyncSnapshot) {
-          return Center(
-              child: Text('Tappeando BETA',
-                  style: TextStyle(color: Colors.white, fontSize: 30.0)));
+          return Center(child: Image.asset('images/splash.jpg'));
         },
       ),
     ));
