@@ -40,8 +40,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void _listenSuccessStates(BuildContext context, SplashBloc bloc) {
     final onData = (Resource state) {
       if (state.status == Status.SUCCESS) {
+        print("sucesss");
         _openMain();
       } else if (state.status == Status.ERROR) {
+        print("error");
         final snackBar = SnackBar(content: Text(state.message));
         Scaffold.of(context).showSnackBar(snackBar);
       }
@@ -57,7 +59,31 @@ class _SplashScreenState extends State<SplashScreen> {
         initialData: Resource<AppInformationModel>.idle(),
         stream: bloc.appInformation,
         builder: (context, asyncSnapshot) {
-          return Center(child: Image.asset('images/splash.jpg'));
+          return Column(
+
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                new Expanded(child: new Image.asset(
+                  'images/splash.jpg', fit: BoxFit.fitHeight,
+                ),
+
+                )
+              ]
+
+
+//            child: Container(
+//              child: new Stack(
+//                children: <Widget>[
+//                  new Image.asset(
+//                    'images/splash.jpg',
+//                    width: 100,
+//                    height: 100,
+//                  ),
+//                ],
+//              ),
+//            ),
+          );
         },
       ),
     ));
