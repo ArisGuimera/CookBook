@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "379651084800",
+    "firebase_url": "https://cheff-2e128.firebaseio.com",
+    "project_id": "cheff-2e128",
+    "storage_bucket": "cheff-2e128.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:379651084800:android:e4bca3abd48750a6447ee5",
+        "android_client_info": {
+          "package_name": "app.tappeando"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "379651084800-kdvgdbjgait9vritq65q8s9gfihb9ul6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIXzBKFcMSY17cfcRxEhZRQ0BYEGcdByI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "379651084800-kdvgdbjgait9vritq65q8s9gfihb9ul6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
