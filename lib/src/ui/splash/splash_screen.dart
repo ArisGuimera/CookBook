@@ -90,6 +90,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _openMain() {
-    Navigator.pushNamedAndRemoveUntil(context, "/home", (r) => false);
+    Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false);
   }
 }

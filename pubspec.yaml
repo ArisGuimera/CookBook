@@ -17,8 +17,11 @@ dependencies:
   path_provider: ^1.2.0
   google_maps_flutter: ^0.5.19+2
   image_picker: ^0.6.1
-  firebase_core: ^0.2.5
+  firebase_core: ^0.4.4
   firebase_analytics: ^1.0.4
+  google_sign_in: ^4.1.1
+  firebase_auth: ^0.15.4
+
 
 dev_dependencies:
   flutter_test:
