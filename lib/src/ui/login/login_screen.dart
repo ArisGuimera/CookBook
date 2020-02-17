@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tappeando/src/repository/authentication.dart';
+import 'package:tappeando/src/ui/signin/signin_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({this.auth, this.loginCallback});
@@ -224,10 +225,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget showSecondaryButton() {
     return new FlatButton(
-        child: new Text(
-            _isLoginForm ? 'Create an account' : 'Have an account? Sign in',
+        child: new Text('Create an account',
             style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
-        onPressed: toggleFormMode);
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SignInScreen()),
+          );
+        });
   }
 
   Widget showPrimaryButton() {
@@ -240,10 +245,19 @@ class _LoginScreenState extends State<LoginScreen> {
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0)),
             color: Colors.blue,
-            child: new Text(_isLoginForm ? 'Login' : 'Create account',
+            child: new Text('Login',
                 style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: validateAndSubmit,
           ),
         ));
+  }
+
+  _goToSignIn() {
+    Navigator.pushNamedAndRemoveUntil(context, "/signin", (r) => false);
+
+//    Navigator.push(
+//        context, MaterialPageRoute(builder: (context) => SignInScreen()));
+
+
   }
 }

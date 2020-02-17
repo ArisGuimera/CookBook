@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tappeando/src/blocs/splash_bloc.dart';
 import 'package:tappeando/src/common/resources.dart';
 import 'package:tappeando/src/model/appinformation_model.dart';
+import 'package:tappeando/src/ui/login/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -60,17 +61,16 @@ class _SplashScreenState extends State<SplashScreen> {
         stream: bloc.appInformation,
         builder: (context, asyncSnapshot) {
           return Column(
-
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                new Expanded(child: new Image.asset(
-                  'images/splash.jpg', fit: BoxFit.fitHeight,
-                ),
-
+                new Expanded(
+                  child: new Image.asset(
+                    'images/splash.jpg',
+                    fit: BoxFit.fitHeight,
+                  ),
                 )
               ]
-
 
 //            child: Container(
 //              child: new Stack(
@@ -83,7 +83,7 @@ class _SplashScreenState extends State<SplashScreen> {
 //                ],
 //              ),
 //            ),
-          );
+              );
         },
       ),
     ));
@@ -91,5 +91,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _openMain() {
     Navigator.pushNamedAndRemoveUntil(context, "/login", (r) => false);
+
+//    Navigator.push(
+//        context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }
