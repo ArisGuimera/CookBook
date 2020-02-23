@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tappeando/src/ui/home/home_screen.dart';
-import 'package:tappeando/src/ui/login/login_screen.dart';
-import 'package:tappeando/src/ui/signup/signup_screen.dart';
-import 'package:tappeando/src/ui/splash/splash_screen.dart';
 import 'package:tappeando/src/repository/authentication.dart';
+import 'package:tappeando/src/root_screen.dart';
 
 void main() => runApp(TappeandoApp());
 
@@ -15,13 +12,9 @@ class TappeandoApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SplashScreen(),
-      routes: {
-        'splash': (context) => SplashScreen(),
-        '/home': (context) => HomeScreen(),
-        '/login': (context) => LoginScreen(auth: Auth()),
-        '/signin': (context) => SignUpScreen(),
-      },
+      home: new RootPage(
+        auth: new Auth(),
+      ),
     );
   }
 }

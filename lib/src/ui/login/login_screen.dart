@@ -19,7 +19,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password;
   String _errorMessage;
 
-  bool _isLoginForm;
   bool _isLoading;
 
   // Check if form is valid before perform login or signup
@@ -34,27 +33,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // Perform login or signup
   void validateAndSubmit() async {
-    setState(() {
-      _errorMessage = "";
-      _isLoading = true;
-    });
     if (validateAndSave()) {
+      setState(() {
+        _errorMessage = "";
+        _isLoading = true;
+      });
       String userId = "";
       try {
-        if (_isLoginForm) {
-          userId = await widget.auth.signIn(_email, _password);
-          print('Signed in: $userId');
-        } else {
-          userId = await widget.auth.signUp(_email, _password);
-          //widget.auth.sendEmailVerification();
-          //_showVerifyEmailSentDialog();
-          print('Signed up user: $userId');
-        }
+        userId = await widget.auth.signIn(_email, _password);
+        print('Signed in: $userId');
         setState(() {
           _isLoading = false;
         });
-
-        if (userId.length > 0 && userId != null && _isLoginForm) {
+        if (userId.length > 0 && userId != null) {
           widget.loginCallback();
         }
       } catch (e) {
@@ -72,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     _errorMessage = "";
     _isLoading = false;
-    _isLoginForm = true;
     super.initState();
   }
 
@@ -83,9 +73,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void toggleFormMode() {
     resetForm();
-    setState(() {
-      _isLoginForm = !_isLoginForm;
-    });
   }
 
   @override
@@ -227,7 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return new FlatButton(
         child: new Text('Create an account',
             style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SignUpScreen()),
@@ -250,14 +237,5 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: validateAndSubmit,
           ),
         ));
-  }
-
-  _goToSignIn() {
-    Navigator.pushNamedAndRemoveUntil(context, "/signin", (r) => false);
-
-//    Navigator.push(
-//        context, MaterialPageRoute(builder: (context) => SignInScreen()));
-
-
   }
 }

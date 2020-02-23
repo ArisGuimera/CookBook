@@ -3,7 +3,6 @@ import 'package:tappeando/src/repository/authentication.dart';
 import 'package:tappeando/src/ui/widget/bezierContainer.dart';
 
 class SignUpScreen extends StatefulWidget {
-
   @override
   _SignUpScreenState createState() => new _SignUpScreenState();
 }
@@ -14,6 +13,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _password;
   final BaseAuth auth = new Auth();
 
+  String _errorMessage;
+  bool _isLoading;
+
 //  String _name;
 
 //  final emailController = TextEditingController();
@@ -21,9 +23,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void initState() {
+    _errorMessage = "";
+    _isLoading = false;
     super.initState();
-//    emailController.addListener(_setEmail());
-//    passController.addListener(_setPassword());
   }
 
 //  _setEmail() {
@@ -80,8 +82,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 border: InputBorder.none,
                 fillColor: Color(0xfff3f3f4),
                 filled: true),
-            validator: (value) =>
-                value.isEmpty ? 'Mail can\'t be empty' : null,
+            validator: (value) => value.isEmpty ? 'Mail can\'t be empty' : null,
             onSaved: (value) => _email = value.trim(),
           )
         ],
@@ -103,13 +104,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
             height: 10,
           ),
           TextFormField(
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true),
-            validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
-            onSaved: (value) => _password = value.trim(),)
+            obscureText: true,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                fillColor: Color(0xfff3f3f4),
+                filled: true),
+            validator: (value) =>
+                value.isEmpty ? 'Password can\'t be empty' : null,
+            onSaved: (value) => _password = value.trim(),
+          )
         ],
       ),
     );
@@ -232,11 +235,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _submitButton(),
                 Expanded(
                   flex: 2,
-                  child: SizedBox(),
+                  child: SizedBox(
+                    child: showErrorMessage(),
+                  ),
                 )
               ],
             ),
           ),
+          _showCircularProgress(),
           Align(
             alignment: Alignment.bottomCenter,
             child: _loginAccountLabel(),
@@ -251,40 +257,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
     )));
   }
 
-  // Perform signup
   void validateAndSubmit() async {
-    setState(() {
-//      _errorMessage = "";
-//      _isLoading = true;
-    });
     if (validateAndSave()) {
+      setState(() {
+        _errorMessage = "";
+        _isLoading = true;
+      });
       String userId = "";
       try {
-//        if (_isLoginForm) {
-//          userId = await widget.auth.signIn(_email, _password);
-//          print('Signed in: $userId');
-//        } else {
         userId = await auth.signUp(_email, _password);
         auth.sendEmailVerification();
 //          _showVerifyEmailSentDialog();
 //          print('Signed up user: $userId');
 //        }
-//        setState(() {
-//          _isLoading = false;
-//        });
-//
+        setState(() {
+          _isLoading = false;
+        });
 //        if (userId.length > 0 && userId != null && _isLoginForm) {
 //          widget.loginCallback();
 //        }
       } catch (e) {
         print('Error: $e');
         setState(() {
-//          _isLoading = false;
-//          _errorMessage = e.message;
-//          _formKey.currentState.reset();
+          _isLoading = false;
+          _errorMessage = e.message;
+          _formKey.currentState.reset();
         });
       }
     }
+  }
+
+  void resetForm() {
+    _formKey.currentState.reset();
+    _errorMessage = "";
   }
 
   bool validateAndSave() {
@@ -294,5 +299,32 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return true;
     }
     return false;
+  }
+
+  Widget showErrorMessage() {
+    if (_errorMessage.length > 0 && _errorMessage != null) {
+      return new Text(
+        _errorMessage,
+        style: TextStyle(
+            fontSize: 13.0,
+            color: Colors.red,
+            height: 1.0,
+            fontWeight: FontWeight.w300),
+      );
+    } else {
+      return new Container(
+        height: 0.0,
+      );
+    }
+  }
+
+  Widget _showCircularProgress() {
+    if (_isLoading) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Container(
+      height: 0.0,
+      width: 0.0,
+    );
   }
 }
