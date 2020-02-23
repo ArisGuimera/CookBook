@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tappeando/src/ui/home/home_screen.dart';
 import 'package:tappeando/src/ui/login/login_screen.dart';
-import 'package:tappeando/src/ui/signin/signin_screen.dart';
+import 'package:tappeando/src/ui/signup/signup_screen.dart';
 import 'package:tappeando/src/ui/splash/splash_screen.dart';
 import 'package:tappeando/src/repository/authentication.dart';
 
@@ -20,7 +20,7 @@ class TappeandoApp extends StatelessWidget {
         'splash': (context) => SplashScreen(),
         '/home': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(auth: Auth()),
-        '/signin': (context) => SignInScreen(),
+        '/signin': (context) => SignUpScreen(),
       },
     );
   }

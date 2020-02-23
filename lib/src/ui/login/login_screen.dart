@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tappeando/src/repository/authentication.dart';
-import 'package:tappeando/src/ui/signin/signin_screen.dart';
+import 'package:tappeando/src/ui/signup/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({this.auth, this.loginCallback});
@@ -230,7 +230,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: (){
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SignInScreen()),
+            MaterialPageRoute(builder: (context) => SignUpScreen()),
           );
         });
   }
