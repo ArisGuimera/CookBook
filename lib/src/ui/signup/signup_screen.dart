@@ -3,11 +3,17 @@ import 'package:tappeando/src/repository/authentication.dart';
 import 'package:tappeando/src/ui/widget/bezierContainer.dart';
 
 class SignUpScreen extends StatefulWidget {
+  SignUpScreen({this.auth, this.loginCallback});
+
+  final BaseAuth auth;
+  final VoidCallback loginCallback;
+
   @override
   _SignUpScreenState createState() => new _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+
   final _formKey = new GlobalKey<FormState>();
   String _email;
   String _password;
@@ -16,32 +22,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String _errorMessage;
   bool _isLoading;
 
-//  String _name;
-
-//  final emailController = TextEditingController();
-//  final passController = TextEditingController();
-
   @override
   void initState() {
     _errorMessage = "";
     _isLoading = false;
     super.initState();
   }
-
-//  _setEmail() {
-//    _email = emailController.text;
-//  }
-//
-//  _setPassword() {
-//    _password = passController.text;
-//  }
-//
-//  @override
-//  void dispose() {
-//    emailController.dispose();
-//    passController.dispose();
-//    super.dispose();
-//  }
 
   Widget _backButton() {
     return InkWell(
@@ -266,16 +252,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       String userId = "";
       try {
         userId = await auth.signUp(_email, _password);
-        auth.sendEmailVerification();
-//          _showVerifyEmailSentDialog();
-//          print('Signed up user: $userId');
-//        }
         setState(() {
           _isLoading = false;
         });
-//        if (userId.length > 0 && userId != null && _isLoginForm) {
-//          widget.loginCallback();
-//        }
+        if (userId.length > 0 && userId != null) {
+          widget.loginCallback();
+        }
       } catch (e) {
         print('Error: $e');
         setState(() {

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:tappeando/src/repository/authentication.dart';
 import 'package:tappeando/src/ui/home/home_screen.dart';
 import 'package:tappeando/src/ui/login/login_screen.dart';
+import 'package:tappeando/src/ui/signup/signup_screen.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
   NOT_LOGGED_IN,
   LOGGED_IN,
+  SIGN_UP
 }
 
 class RootPage extends StatefulWidget {
@@ -54,6 +56,12 @@ class _RootPageState extends State<RootPage> {
     });
   }
 
+  void signupCallback() {
+    setState(() {
+      authStatus = AuthStatus.SIGN_UP;
+    });
+  }
+
   Widget buildWaitingScreen() {
     return Scaffold(
       body: Container(
@@ -73,6 +81,7 @@ class _RootPageState extends State<RootPage> {
         return new LoginScreen(
           auth: widget.auth,
           loginCallback: loginCallback,
+          signupCallback: signupCallback
         );
         break;
       case AuthStatus.LOGGED_IN:
@@ -84,6 +93,12 @@ class _RootPageState extends State<RootPage> {
           );
         } else
           return buildWaitingScreen();
+        break;
+      case AuthStatus.SIGN_UP:
+        return new SignUpScreen(
+          auth: widget.auth,
+          loginCallback: loginCallback,
+        );
         break;
       default:
         return buildWaitingScreen();

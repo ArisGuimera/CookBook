@@ -3,10 +3,11 @@ import 'package:tappeando/src/repository/authentication.dart';
 import 'package:tappeando/src/ui/signup/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({this.auth, this.loginCallback});
+  LoginScreen({this.auth, this.loginCallback, this.signupCallback});
 
   final BaseAuth auth;
   final VoidCallback loginCallback;
+  final VoidCallback signupCallback;
 
   @override
   State<StatefulWidget> createState() => new _LoginScreenState();
@@ -215,10 +216,11 @@ class _LoginScreenState extends State<LoginScreen> {
         child: new Text('Create an account',
             style: new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w300)),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SignUpScreen()),
-          );
+//          Navigator.push(
+//            context,
+//            MaterialPageRoute(builder: (context) => SignUpScreen()),
+//          );
+          widget.signupCallback();
         });
   }
 
