@@ -21,6 +21,8 @@ dependencies:
   firebase_analytics: ^1.0.4
   google_sign_in: ^4.1.1
   firebase_auth: ^0.15.4
+  firebase_database: ^3.0.7
+  cloud_firestore: ^0.13.4+1
 
 
 dev_dependencies:
